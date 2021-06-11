@@ -19,5 +19,6 @@ public class HouseDTO {
     public List<String> colors;
     public String founder;
     public List<String> values;
+    
 
 }

@@ -58,6 +58,7 @@ public class House implements Serializable{
     @Type(type = "list-array")    
     @Column(name= "values",columnDefinition = "text[]")
     public List<String> values;
+    
 
     public static House converter(HouseDTO value){
         House house = new House();
@@ -71,5 +72,4 @@ public class House implements Serializable{
         house.setFounder(value.getFounder());
         return house;
     }
-    
 }

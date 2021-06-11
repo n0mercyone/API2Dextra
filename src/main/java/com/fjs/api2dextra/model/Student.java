@@ -26,5 +26,9 @@ public class Student extends Member{
     private House house;
 
     public void study(){}
+
+    public boolean isValid(){
+        return getName() != null && getHouse() != null && getRole() != null;
+    }
     
 }
