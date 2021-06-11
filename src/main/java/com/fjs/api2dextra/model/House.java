@@ -40,7 +40,7 @@ public class House implements Serializable{
 
     @OneToOne
     @JoinColumn(name = "header_id", referencedColumnName = "id")
-    @RestResource(path = "houseTeatchers", rel="members")    
+    @RestResource(path = "houseTeatchers", rel="members")      
     public Teacher headOfHouse;
     
     public String mascot;

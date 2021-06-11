@@ -1,6 +1,6 @@
 package com.fjs.api2dextra.config;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +26,9 @@ public class SwaggerSettings {
 
     public ApiInfo metaInfo() {
         ApiInfo apiInfo = new ApiInfo("Happy Potter • API REST",
-                "API REST • CRUD Harry Potter characters for api2dextra", "1.0", "Terms Of Service",
+                "API REST • CRUD Harry Potter characters for api2dextra", "1.0.0", "#",
                 new Contact("Frank jr", "https://foxmanager.com.br/", "frank.apk@gmail.com"),
-                "Apache Licente Verion 2.0", "https://www.apache.org/licenses/LICENSE-2.0", new ArrayList<>());
+                "Apache Licente Verion 2.0", "https://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());
         return apiInfo;
     }
 

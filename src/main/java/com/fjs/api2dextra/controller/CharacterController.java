@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api")
@@ -55,7 +57,12 @@ public class CharacterController {
         teacherService = new TeacherService(teacherRepository);
     }
 
-    @GetMapping(path = "/characters")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "retorna uma lista com todos os characters."),
+        @ApiResponse(code = 403, message = "você não tem permissão."),
+        @ApiResponse(code = 500, message = "Foi gerada uma exceção.")
+    })
+    @GetMapping(path = "/characters", produces = "application/json", consumes = "application/json")
     @ApiOperation(value = "Retorna todos os personagens cadastrados.")
     public ResponseEntity<List<Student>> getAll() {
         try {
@@ -78,7 +85,12 @@ public class CharacterController {
         }
     }
 
-    @GetMapping(path = "/characters/house/{id}")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "retorna uma lista com todos os characters filtrados pelo id da casa."),
+        @ApiResponse(code = 403, message = "você não tem permissão."),
+        @ApiResponse(code = 500, message = "Foi gerada uma exceção.")
+    })
+    @GetMapping(path = "/characters/house/{id}", produces = "application/json", consumes = "application/json")
     @ApiOperation(value = "Retorna todos os personagens cadastrados filtrando pelo id da casa.")
     public ResponseEntity<List<Student>> getCharactersByHouse(@PathVariable("id") String id) {
         try {
@@ -97,17 +109,21 @@ public class CharacterController {
         }
     }
 
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "retorna um json com o objeto criado."),
+        @ApiResponse(code = 403, message = "você não tem permissão."),
+        @ApiResponse(code = 500, message = "Foi gerada uma exceção.")
+    })
     @PostMapping(path = "/characters", produces = "application/json", consumes = "application/json")
-    @ApiOperation(value = "Cadastro um personagem na base de dados.")
+    @ApiOperation(value = "Cadastra um personagem e associa a sua respectiva casa.")    
     public ResponseEntity<String> save(@RequestBody StudentDTO student) throws Exception {
 
         /** validar campos do objeto da requisição */
         BadRequest br = studentService.validateCharacter(student);
 
-        if (br.getMessage().size() > 0) {/** caso algum campo esteja faltando, exibir um retorno */
+        if (br.getMessage().size() > 0) /** caso algum campo esteja faltando, exibir um retorno */
             return ResponseEntity.badRequest().body(Util.reponsePrettyJSON(br));
-        }
-
+        
         try {
             /** persiste o personagem */
             newStudent = saveCharacter(student);
@@ -147,7 +163,7 @@ public class CharacterController {
 
                 /** associa o professor com a casa */
                 house.setHeadOfHouse(teacher);
-                
+
                 /** persiste a casa */
                 houseService.save(house);
             }
