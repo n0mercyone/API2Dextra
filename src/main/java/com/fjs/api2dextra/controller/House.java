@@ -24,8 +24,6 @@ public class House {
     @Autowired
     private PotterApiService potterApiService;
 
-
-
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista das casas."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })

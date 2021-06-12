@@ -57,7 +57,7 @@ public class Character {
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
     @GetMapping(path = "/{id}", produces = "application/json")
-    @ApiOperation(value = "Retorna um personagen filtrando pelo id.", tags = {"Characters"})
+    @ApiOperation(value = "Retorna um personagen filtrando pelo seu id.", tags = {"Characters"})
     public ResponseEntity<StudentRs> getCharacter(@PathVariable("id") Integer id) {
         try {
             StudentRs student = new StudentRs();
