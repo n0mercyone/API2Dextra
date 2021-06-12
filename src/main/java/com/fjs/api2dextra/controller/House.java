@@ -16,9 +16,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/houses")
 @CrossOrigin(origins = "*")
-@Api(value = "api2dextra")
+@Api(value = "Houses", description = "API REST para as casas", tags = {"Houses"})
 public class House {
 
     @Autowired
@@ -29,8 +29,8 @@ public class House {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista das casas."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @RequestMapping(path = "/houses", produces = "application/json", method = RequestMethod.GET)
-    @ApiOperation(value = "Retorna a lista das casas disponíveis na PotterApi.")
+    @RequestMapping(path = "/", produces = "application/json", method = RequestMethod.GET)
+    @ApiOperation(value = "Retorna a lista das casas disponíveis na PotterApi.", tags = {"Houses"})
     public ResponseEntity<HousesPotterApiRs> getAll() {
         try {
             HousesPotterApiRs houses = potterApiService.getHousesFromPotterApiRs();

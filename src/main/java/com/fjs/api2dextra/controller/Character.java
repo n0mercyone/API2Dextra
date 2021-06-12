@@ -25,9 +25,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/characters")
 @CrossOrigin(origins = "*")
-@Api(value = "api2dextra")
+@Api(value = "Characters", description = "API REST para os personagens", tags = {"Characters"})
 public class Character {
 
     @Autowired
@@ -39,8 +39,8 @@ public class Character {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma lista com todos os personagens."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @GetMapping(path = "/characters", produces = "application/json")
-    @ApiOperation(value = "Retorna todos os personagens cadastrados.")
+    @GetMapping(path = "/", produces = "application/json")
+    @ApiOperation(value = "Retorna todos os personagens cadastrados.", tags = {"Characters"})
     public ResponseEntity<List<StudentRs>> getAll() {
         try {
             List<StudentRs> students = new ArrayList<StudentRs>();
@@ -56,8 +56,8 @@ public class Character {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um personagen."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @GetMapping(path = "/characters/{id}", produces = "application/json")
-    @ApiOperation(value = "Retorna um personagen filtrando pelo id.")
+    @GetMapping(path = "/{id}", produces = "application/json")
+    @ApiOperation(value = "Retorna um personagen filtrando pelo id.", tags = {"Characters"})
     public ResponseEntity<StudentRs> getCharacter(@PathVariable("id") Integer id) {
         try {
             StudentRs student = new StudentRs();
@@ -80,8 +80,8 @@ public class Character {
             @ApiResponse(code = 200, message = "Retorna uma lista com todos os personagens filtrados pelo id da casa."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @GetMapping(path = "/characters/house/{id}", produces = "application/json")
-    @ApiOperation(value = "Retorna todos os personagens cadastrados filtrando por sua respectiva casa.")
+    @GetMapping(path = "/house/{id}", produces = "application/json")
+    @ApiOperation(value = "Retorna todos os personagens cadastrados filtrando por sua respectiva casa.", tags = {"Characters"})
     public ResponseEntity<List<StudentRs>> getCharactersByHouse(@PathVariable("id") String id) {
         try {
             List<StudentRs> students = new ArrayList<StudentRs>();
@@ -101,8 +101,8 @@ public class Character {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Cadastra um personagem nos registros."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @RequestMapping(path = "/characters", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
-    @ApiOperation(value = "Cadastro de personagens.")
+    @RequestMapping(path = "/", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
+    @ApiOperation(value = "Cadastro de personagens.", tags = {"Characters"})
     public ResponseEntity<Void> save(@RequestBody StudentRq studentRq) throws Exception {
         try {
             studentService.save(studentRq);
@@ -115,8 +115,8 @@ public class Character {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um personagem dos registros."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @RequestMapping(path = "/characters/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(value = "Exclusão de personagens.")
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Exclusão de personagens.", tags = {"Characters"})
     public ResponseEntity<Boolean> delete(@PathVariable("id") Integer id) {
         boolean hasDelected = false;
         try {
@@ -142,8 +142,8 @@ public class Character {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Atualiza o registro do personagem."),
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
-    @RequestMapping(path = "/characters/{id}", method = RequestMethod.PUT)
-    @ApiOperation(value = "Atualização de personagens.")
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @ApiOperation(value = "Atualização de personagens.", tags = {"Characters"})
     public ResponseEntity<Boolean> update(@PathVariable("id") Integer id, @RequestBody StudentRq student) {
         Student st = new Student();
         try {

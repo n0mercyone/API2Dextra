@@ -26,8 +26,8 @@ public class SwaggerSettings {
 
     public ApiInfo metaInfo() {
         ApiInfo apiInfo = new ApiInfo("Happy Potter • API REST",
-                "API REST • CRUD Harry Potter characters for api2dextra", "1.0.0", "#",
-                new Contact("Frank jr", "https://foxmanager.com.br/", "frank.apk@gmail.com"),
+                "Harry Potter CRUD characters for dextra challenge", "1.0.0", "#",
+                new Contact("FJS", "https://www.linkedin.com/in/frank-junior-souza-83618162/", "frank.apk@gmail.com"),
                 "Apache Licente Verion 2.0", "https://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());
         return apiInfo;
     }
