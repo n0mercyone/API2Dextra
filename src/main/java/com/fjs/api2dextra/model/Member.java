@@ -13,8 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +28,7 @@ import lombok.NoArgsConstructor;
 public abstract class Member implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore  
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
 
     @NotNull

@@ -10,8 +10,8 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-import com.fjs.api2dextra.dto.HouseDTO;
-import com.fjs.api2dextra.dto.RootDTO;
+import com.fjs.api2dextra.dto.HousesPotterApiRs;
+import com.fjs.api2dextra.dto.HouseRs;
 import com.fjs.api2dextra.dto.TeacherDTO;
 import com.fjs.api2dextra.enums.Role;
 import com.fjs.api2dextra.model.House;
@@ -24,7 +24,7 @@ public class PotterApiRepositoryJersey implements IPotterApiRepository {
     private static final String END_POINT = "http://us-central1-rh-challenges.cloudfunctions.net/potterApi";
 
     private TeacherDTO teacherDTO;
-    private HouseDTO houseDTO;
+    private HouseRs houseDTO;
     private Client client;
     private WebTarget webTarget;
     private Invocation.Builder invocationBuilder;
@@ -36,16 +36,23 @@ public class PotterApiRepositoryJersey implements IPotterApiRepository {
     }
 
     @Override
-    public List<House> getHouses() {
+    public List<House> getHousesFromPotterApi() {
 
         invocationBuilder = webTarget.path("/houses").request(MediaType.APPLICATION_JSON).header("apikey",
                 "adec1516-d00c-4d36-bf9a-1ba30788457d");
-        RootDTO response = invocationBuilder.get(RootDTO.class);
+        HousesPotterApiRs response = invocationBuilder.get(HousesPotterApiRs.class);
         taskResponse(response);
         return list;
     }
 
-    private void taskResponse(RootDTO value) {
+    public HousesPotterApiRs getHousesFromPotterApiRs() {
+        invocationBuilder = webTarget.path("/houses").request(MediaType.APPLICATION_JSON).header("apikey",
+                "adec1516-d00c-4d36-bf9a-1ba30788457d");
+        HousesPotterApiRs response = invocationBuilder.get(HousesPotterApiRs.class);
+        return response;
+    }
+
+    private void taskResponse(HousesPotterApiRs value) {
         list = new ArrayList<House>();
         if (value.houses.size() > 0) {
 
@@ -61,8 +68,9 @@ public class PotterApiRepositoryJersey implements IPotterApiRepository {
         teacherDTO = new TeacherDTO();
         invocationBuilder = webTarget.path("/houses").request(MediaType.APPLICATION_JSON).header("apikey",
                 "adec1516-d00c-4d36-bf9a-1ba30788457d");
-        RootDTO response = invocationBuilder.get(RootDTO.class);
-        houseDTO = response.houses.stream().filter(house -> house.getId().equals(houseId)).collect(Collectors.toList()).get(0);
+        HousesPotterApiRs response = invocationBuilder.get(HousesPotterApiRs.class);
+        houseDTO = response.houses.stream().filter(house -> house.getId().equals(houseId)).collect(Collectors.toList())
+                .get(0);
         teacherDTO.setName(houseDTO.getHeadOfHouse());
         teacherDTO.setRole(Role.TEACHER.getValue());
         return teacherDTO;

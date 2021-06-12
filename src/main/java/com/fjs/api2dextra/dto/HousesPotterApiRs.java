@@ -8,6 +8,6 @@ import lombok.Data;
 
 @XmlRootElement
 @Data
-public class RootDTO {
-    public List<HouseDTO> houses;
+public class HousesPotterApiRs {
+    public List<HouseRs> houses;
 }

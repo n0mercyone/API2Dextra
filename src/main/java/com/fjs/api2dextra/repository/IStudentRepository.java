@@ -9,9 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IStudentRepository extends JpaRepository<Student, Long> {
+public interface IStudentRepository extends JpaRepository<Student, Integer> {
 
-    @Query(value = "SELECT * FROM student WHERE house_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT id, created_at, name, role, patronus, house_id FROM student WHERE house_id = ?1", nativeQuery = true)
     List<Student> findCharactersByHouse(String houseID);
+
+
     
 }

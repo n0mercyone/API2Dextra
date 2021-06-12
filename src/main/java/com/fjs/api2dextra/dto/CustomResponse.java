@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BadRequest {
+public class CustomResponse {
 
     private int code;
     private List<String> message;

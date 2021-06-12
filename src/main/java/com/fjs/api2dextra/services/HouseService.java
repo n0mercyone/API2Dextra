@@ -1,17 +1,24 @@
 package com.fjs.api2dextra.services;
 
+import java.util.List;
+
 import com.fjs.api2dextra.model.House;
 import com.fjs.api2dextra.repository.IHouseRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HouseService {
     
+    @Autowired
     private IHouseRepository repository;
 
-    public HouseService(IHouseRepository repository){
-        this.repository = repository;
+    public HouseService(){
+    }
+
+    public List<House> findAll(){                       
+        return repository.findAll();
     }
 
     public House findById(String id){               
@@ -19,8 +26,8 @@ public class HouseService {
         return hs;
     }
 
-    public void save(House value){
-        repository.save(value);
+    public House save(House value){
+        return repository.save(value);
     }
     
 }

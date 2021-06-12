@@ -8,7 +8,7 @@ import lombok.Data;
 
 @XmlRootElement
 @Data
-public class HouseDTO {
+public class HouseRs {
     
     public String id;
     public String headOfHouse;
@@ -18,7 +18,7 @@ public class HouseDTO {
     public String school;
     public List<String> colors;
     public String founder;
-    public List<String> values;//1.320,36
+    public List<String> values;
     
 
 }

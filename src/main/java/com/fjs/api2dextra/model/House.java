@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fjs.api2dextra.dto.HouseDTO;
+import com.fjs.api2dextra.dto.HouseRs;
 import com.vladmihalcea.hibernate.type.array.ListArrayType;
 
 import org.hibernate.annotations.Type;
@@ -60,7 +60,7 @@ public class House implements Serializable{
     public List<String> values;
     
 
-    public static House converter(HouseDTO value){
+    public static House converter(HouseRs value){
         House house = new House();
         house.setId(value.getId());
         house.setName(value.getName());
