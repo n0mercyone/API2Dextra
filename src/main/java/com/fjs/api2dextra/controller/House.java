@@ -30,7 +30,7 @@ public class House {
             @ApiResponse(code = 403, message = "Você não tem permissão."),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
     @RequestMapping(path = "/houses", produces = "application/json", method = RequestMethod.GET)
-    @ApiOperation(value = "Retorna a lista das casas.")
+    @ApiOperation(value = "Retorna a lista das casas disponíveis na PotterApi.")
     public ResponseEntity<HousesPotterApiRs> getAll() {
         try {
             HousesPotterApiRs houses = potterApiService.getHousesFromPotterApiRs();
