@@ -20,6 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Student extends Member{
 
+    
     @Getter @Setter
     private String patronus;
     
