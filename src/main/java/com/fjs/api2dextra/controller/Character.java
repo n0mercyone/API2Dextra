@@ -2,6 +2,7 @@ package com.fjs.api2dextra.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fjs.api2dextra.dto.CustomResponse;
 import com.fjs.api2dextra.dto.StudentRq;
@@ -127,21 +128,24 @@ public class Character {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     @ApiOperation(value = "Atualização de personagens.", tags = { "Characters" })
-    public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody StudentRq student) {
-
-        CustomResponse cr = studentService.validateCharacter(student);
-
-        if (cr.getMessage().size() > 0)
-            return ResponseEntity.badRequest().body(cr);
+    public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody StudentRq student) {        
 
         Student st = new Student();
         st = studentService.findById(id);
-        st.setName(student.getName());
-        st.setRole(student.getRole());
-        st.setPatronus(student.getPatronus());
-        st.setHouse(houseService.findById(student.getHouse()));
+        if (!Objects.isNull(student.getName()))
+            st.setName(student.getName());
+
+        if (!Objects.isNull(student.getRole()))
+            st.setRole(student.getRole());
+
+        if (!Objects.isNull(student.getPatronus()))
+            st.setPatronus(student.getPatronus());
+
+        if (!Objects.isNull(student.getHouse()))
+            st.setHouse(houseService.findById(student.getHouse()));
 
         studentService.update(st);
+
         return ResponseEntity.ok().build();
 
     }

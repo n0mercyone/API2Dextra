@@ -11,7 +11,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,9 +30,7 @@ public abstract class Member implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
 
-    @NotNull
     private String name;
-    @NotNull
     private String role;
     @Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
