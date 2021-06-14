@@ -11,6 +11,7 @@ import com.fjs.api2dextra.dto.StudentRs;
 import com.fjs.api2dextra.model.House;
 import com.fjs.api2dextra.model.Student;
 import com.fjs.api2dextra.repository.IStudentRepository;
+import com.fjs.api2dextra.services.exceptions.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,41 +25,50 @@ public class StudentService {
     private HouseService houseService;
     private PotterApiService potterApiService;
 
+    /** contrutor recebendo houseService e potterApiService por injeção */
     public StudentService(HouseService houseService, PotterApiService potterApiService) {
         this.houseService = houseService;
         this.potterApiService = potterApiService;
     }
 
+    /** retorna lista com todos os registros do tipo Student */
     public List<Student> findAll() {
         return repository.findAll();
     }
 
+    /** retorna lista com todos os registros do tipo StudentRs */
     public List<StudentRs> findAllStudentRs() {
         return repository.findAll().stream().map(StudentRs::converter).collect(Collectors.toList());
     }
 
+    /** retorna um objeto do tipo Student */
     public Student findById(Integer id) {
-        return repository.findById(id).orElse(null);
+        /** lança uma exceção personalizada caso não encontre o registro. */
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Personagem não encontrado para o id " + id));
     }
 
+    /** exclui um objeto Student da base de dados */
     public boolean delete(Student student) {
-        boolean hasDone = false;
+        boolean hasDelected = false;
         try {
             repository.delete(student);
-            hasDone = true;
+            hasDelected = true;
         } catch (Exception e) {
 
         }
-        return hasDone;
+        return hasDelected;
 
     }
 
+    /** busca todos os personagens pelo id da casa */
     public List<StudentRs> findCharactersByHouse(String houseID) {
         List<Student> listStudents = repository.findCharactersByHouse(houseID);
         return listStudents.stream().map(StudentRs::converter).collect(Collectors.toList());
     }
 
-    public CustomResponse validateCharacter(StudentRs value) {
+    /** método para validar os campos do personagem (Student) */
+    public CustomResponse validateCharacter(StudentRq value) {
         CustomResponse rq = new CustomResponse();
         List<String> erros = new ArrayList<String>();
         if (value.getHouse() == null) {
@@ -80,12 +90,13 @@ public class StudentService {
         return rq;
     }
 
+    /** cria um personagem na base de dados do tipo Student */
     public Student save(StudentRq studentRq) {
         Student student = null;
         House house = obtainHouse(studentRq.getHouse());
-        
-        if (!Objects.isNull(house)) {            
-            student = new Student();            
+
+        if (!Objects.isNull(house)) {
+            student = new Student();
             student.setHouse(house);
             student.setName(studentRq.getName());
             student.setRole(studentRq.getRole());
@@ -116,6 +127,7 @@ public class StudentService {
         return sd;
     }
 
+    /** recura a casa para ser utilizada no cadastro do personagem (Student) */
     public House obtainHouse(String id) {
         House house = houseService.findById(id);
         List<House> list;
@@ -126,6 +138,7 @@ public class StudentService {
             list = potterApiService.getHousesFromPotterApi().stream().filter(hs -> hs.getId().equalsIgnoreCase(id))
                     .collect(Collectors.toList());
             house = list.size() > 0 ? list.get(0) : null;
+                
         }
         return house;
     }
