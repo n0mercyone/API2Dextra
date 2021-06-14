@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/api/characters")
+@RequestMapping("/api/characters/")
 @CrossOrigin(origins = "*")
 @Api(value = "Characters", description = "API REST para os personagens", tags = { "Characters" })
 public class Character {
@@ -140,7 +140,7 @@ public class Character {
         st.setRole(student.getRole());
         st.setPatronus(student.getPatronus());
         st.setHouse(houseService.findById(student.getHouse()));
-        
+
         studentService.update(st);
         return ResponseEntity.ok().build();
 
