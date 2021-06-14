@@ -94,7 +94,6 @@ public class StudentService {
     public Student save(StudentRq studentRq) {
         Student student = null;
         House house = obtainHouse(studentRq.getHouse());
-
         if (!Objects.isNull(house)) {
             student = new Student();
             student.setHouse(house);
@@ -138,8 +137,13 @@ public class StudentService {
             list = potterApiService.getHousesFromPotterApi().stream().filter(hs -> hs.getId().equalsIgnoreCase(id))
                     .collect(Collectors.toList());
             house = list.size() > 0 ? list.get(0) : null;
-                
+            if (Objects.isNull(house))
+                throw new EntityNotFoundException("Não foi possível obter a casa pelo id: " + id);
+
+            houseService.save(house);
+
         }
+
         return house;
     }
 

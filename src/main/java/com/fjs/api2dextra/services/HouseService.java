@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.fjs.api2dextra.model.House;
 import com.fjs.api2dextra.repository.IHouseRepository;
-import com.fjs.api2dextra.services.exceptions.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class HouseService {
     }
 
     public House findById(String id){               
-        House hs = repository.findById(id).orElseThrow(()->new EntityNotFoundException("Nenhuma casa foi encontrada para o id: "+id));
+        House hs = repository.findById(id).orElse(null);
         return hs;
     }
 
