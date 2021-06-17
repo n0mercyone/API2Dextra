@@ -1,4 +1,4 @@
-Harry Potter API
+# Harry Potter API
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/n0mercyone/Personal-Challenges/blob/master/LICENSE) 
 
 # Sobre o projeto
