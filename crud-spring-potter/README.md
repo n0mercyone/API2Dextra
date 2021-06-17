@@ -33,10 +33,11 @@ Pré-requisitos: Java 8 ou superior
 # clonar repositório
 git clone https://github.com/n0mercyone/Personal-Challenges.git
 
-# na raiz do projeto na pasta crud-spring-potter, entrar na pasta resources e configurar o arquivo application.properties para conectar ao endereço do seu banco de dados (Postgres 9.6 ou superior)
+# na raiz do projeto na pasta crud-spring-potter, entrar na pasta resources e configurar o arquivo application.properties 
+#para conectar ao endereço do seu banco de dados (Postgres 9.6 ou superior)
 
-# na raiz do projeto executar o comando abaixo (assegure-se que o banco de dados esteja disponível no endereço, usuário e senha configurados no arquivo application.properties )
-# executar o projeto
+# na raiz do projeto executar o comando abaixo 
+#(assegure-se que o banco de dados esteja disponível no endereço, usuário e senha configurados no arquivo application.properties )
 ./mvnw spring-boot:run
 ```
 
