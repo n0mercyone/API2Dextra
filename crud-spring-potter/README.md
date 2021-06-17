@@ -27,7 +27,7 @@ O projeto consiste em um CRUD utilizando uma API RESTful para cadastro de person
 # Como executar o projeto
 
 ## Back end
-Pré-requisitos: Java 11
+Pré-requisitos: Java 8 ou superior
 
 ```bash
 # clonar repositório
