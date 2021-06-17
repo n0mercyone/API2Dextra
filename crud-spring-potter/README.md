@@ -31,9 +31,9 @@ Pré-requisitos: Java 8 ou superior
 
 ```bash
 # clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
+git clone https://github.com/n0mercyone/Personal-Challenges.git
 
-# na raiz do projeto, entrar na pasta resources e configurar o arquivo application.properties para conectar ao endereço do seu banco de dados (Postgres 9.6 ou superior)
+# na raiz do projeto na pasta crud-spring-potter, entrar na pasta resources e configurar o arquivo application.properties para conectar ao endereço do seu banco de dados (Postgres 9.6 ou superior)
 
 # na raiz do projeto executar o comando abaixo (assegure-se que o banco de dados esteja disponível no endereço, usuário e senha configurados no arquivo application.properties )
 # executar o projeto
