@@ -3,6 +3,7 @@ package com.fjs.api2dextra.repository.exceptions;
 import java.time.Instant;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
 import com.fjs.api2dextra.services.exceptions.EntityNotFoundException;
 
@@ -20,6 +21,17 @@ public class ControllerExceptionHandler {
         error.setTimestamp(Instant.now());
         error.setStatus(HttpStatus.NOT_FOUND.value());
         error.setError(exception.toString());        
+        error.setMessage(exception.getMessage());
+        error.setPath(request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<DefaultError> validationFieldsException(ConstraintViolationException exception, HttpServletRequest request){
+        DefaultError error = new  DefaultError();
+        error.setTimestamp(Instant.now());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setError(exception.getConstraintViolations().stream().findFirst().get().getMessageTemplate());        
         error.setMessage(exception.getMessage());
         error.setPath(request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);

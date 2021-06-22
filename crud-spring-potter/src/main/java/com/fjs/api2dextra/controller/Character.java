@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fjs.api2dextra.dto.CustomResponse;
 import com.fjs.api2dextra.dto.StudentRq;
 import com.fjs.api2dextra.dto.StudentRs;
 import com.fjs.api2dextra.model.Student;
 import com.fjs.api2dextra.services.HouseService;
 import com.fjs.api2dextra.services.StudentService;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +50,15 @@ public class Character {
             /** obter todos os personagens */
             studentService.findAllStudentRs().forEach(students::add);
 
+            if(!students.isEmpty()){
+                for(StudentRs st: students){
+                    st.add(linkTo(methodOn(Character.class).getCharacter(st.getId())).withSelfRel());
+                }
+            }
+
             return ResponseEntity.ok(students);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
@@ -65,6 +74,11 @@ public class Character {
 
         /** obter personagem filtrando pelo id */
         student = StudentRs.converter(studentService.findById(id));
+
+        if(!Objects.isNull(student)){
+            student.add(linkTo(methodOn(Character.class).getAll()).withRel("characters"));
+        }
+
         return ResponseEntity.ok(student);
 
     }
@@ -97,14 +111,14 @@ public class Character {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
     @RequestMapping(path = "/", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
     @ApiOperation(value = "Cadastro de personagens.", tags = { "Characters" })
-    public ResponseEntity<?> save(@RequestBody StudentRq studentRq) throws Exception {
-        CustomResponse cr = studentService.validateCharacter(studentRq);
+    public ResponseEntity<Void> save(@RequestBody StudentRq studentRq) throws Exception {
+        /* CustomResponse cr = studentService.validateCharacter(studentRq); */
 
-        if (cr.getMessage().size() > 0)
-            return ResponseEntity.badRequest().body(cr);
+        /* if (cr.getMessage().size() > 0)
+            return ResponseEntity.badRequest().body(cr); */
 
         studentService.save(studentRq);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um personagem dos registros."),
@@ -146,7 +160,7 @@ public class Character {
 
         studentService.update(st);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
 
     }
 }

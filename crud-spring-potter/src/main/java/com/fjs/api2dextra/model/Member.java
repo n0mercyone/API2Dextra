@@ -11,6 +11,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,13 +28,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class Member implements Serializable {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
 
+    @NotNull(message = "Character name field is required")
+    @NotBlank(message = "Character name field is required")
+    @NotEmpty(message = "Character name field is required")
     private String name;
+
+    @NotNull(message = "Character role field is required")
+    @NotBlank(message = "Character role field is required")
+    @NotEmpty(message = "Character role field is required")
     private String role;
+
     @Column(name="created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

@@ -2,11 +2,16 @@ package com.fjs.api2dextra.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import com.fjs.api2dextra.model.Student;
+
+import org.springframework.hateoas.RepresentationModel;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @XmlRootElement
 @Data
-public class StudentRs {
+@EqualsAndHashCode(callSuper = false)
+public class StudentRs extends RepresentationModel<StudentRs>{
 
     public Integer id;
     public String name;

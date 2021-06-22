@@ -13,6 +13,7 @@ import com.fjs.api2dextra.model.Student;
 import com.fjs.api2dextra.repository.IStudentRepository;
 import com.fjs.api2dextra.services.exceptions.EntityNotFoundException;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,9 @@ public class StudentService {
 
     @Autowired
     private IStudentRepository repository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     private HouseService houseService;
     private PotterApiService potterApiService;
@@ -96,11 +100,9 @@ public class StudentService {
         House house = obtainHouse(studentRq.getHouse());
         if (!Objects.isNull(house)) {
             student = new Student();
+            student = modelMapper.map(studentRq, Student.class);
             student.setHouse(house);
-            student.setName(studentRq.getName());
-            student.setRole(studentRq.getRole());
-            student.setPatronus(studentRq.getPatronus());
-            repository.save(student);
+            repository.save(student);   
         }
 
         return student;
@@ -124,6 +126,10 @@ public class StudentService {
         sd.setPatronus(student.getPatronus());
         sd.setHouse(hs);
         return sd;
+    }
+
+    public StudentRq getStudentRq(StudentRs student){
+        return this.modelMapper.map(student, StudentRq.class);
     }
 
     /** recura a casa para ser utilizada no cadastro do personagem (Student) */
