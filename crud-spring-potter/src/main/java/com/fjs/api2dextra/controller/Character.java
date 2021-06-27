@@ -7,8 +7,9 @@ import java.util.Objects;
 import com.fjs.api2dextra.dto.StudentRq;
 import com.fjs.api2dextra.dto.StudentRs;
 import com.fjs.api2dextra.model.Student;
-import com.fjs.api2dextra.services.HouseService;
-import com.fjs.api2dextra.services.StudentService;
+import com.fjs.api2dextra.services.implementation.HouseService;
+import com.fjs.api2dextra.services.implementation.StudentService;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -111,14 +112,14 @@ public class Character {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção.") })
     @RequestMapping(path = "/", produces = "application/json", consumes = "application/json", method = RequestMethod.POST)
     @ApiOperation(value = "Cadastro de personagens.", tags = { "Characters" })
-    public ResponseEntity<Void> save(@RequestBody StudentRq studentRq) throws Exception {
+    public ResponseEntity<StudentRs> save(@RequestBody StudentRq studentRq) throws Exception {
         /* CustomResponse cr = studentService.validateCharacter(studentRq); */
 
         /* if (cr.getMessage().size() > 0)
             return ResponseEntity.badRequest().body(cr); */
 
-        studentService.save(studentRq);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        Student student = studentService.save(studentRq);
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.getStudentRs(student));
     }
 
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Exclui um personagem dos registros."),

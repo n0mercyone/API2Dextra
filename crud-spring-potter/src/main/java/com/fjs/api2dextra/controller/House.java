@@ -1,7 +1,7 @@
 package com.fjs.api2dextra.controller;
 
 import com.fjs.api2dextra.dto.HousesPotterApiRs;
-import com.fjs.api2dextra.services.PotterApiService;
+import com.fjs.api2dextra.services.implementation.PotterApiService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

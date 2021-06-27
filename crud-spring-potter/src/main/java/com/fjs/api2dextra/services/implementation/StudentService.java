@@ -1,4 +1,4 @@
-package com.fjs.api2dextra.services;
+package com.fjs.api2dextra.services.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import com.fjs.api2dextra.dto.StudentRs;
 import com.fjs.api2dextra.model.House;
 import com.fjs.api2dextra.model.Student;
 import com.fjs.api2dextra.repository.IStudentRepository;
+import com.fjs.api2dextra.services.definition.IStudentService;
 import com.fjs.api2dextra.services.exceptions.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
@@ -18,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentService {
+public class StudentService implements IStudentService{
 
     @Autowired
     private IStudentRepository repository;
@@ -36,16 +37,19 @@ public class StudentService {
     }
 
     /** retorna lista com todos os registros do tipo Student */
+    @Override
     public List<Student> findAll() {
         return repository.findAll();
     }
 
     /** retorna lista com todos os registros do tipo StudentRs */
+    @Override
     public List<StudentRs> findAllStudentRs() {
         return repository.findAll().stream().map(StudentRs::converter).collect(Collectors.toList());
     }
 
     /** retorna um objeto do tipo Student */
+    @Override
     public Student findById(Integer id) {
         /** lança uma exceção personalizada caso não encontre o registro. */
         return repository.findById(id)
@@ -53,6 +57,7 @@ public class StudentService {
     }
 
     /** exclui um objeto Student da base de dados */
+    @Override
     public boolean delete(Student student) {
         boolean hasDelected = false;
         try {
@@ -66,6 +71,7 @@ public class StudentService {
     }
 
     /** busca todos os personagens pelo id da casa */
+    @Override
     public List<StudentRs> findCharactersByHouse(String houseID) {
         List<Student> listStudents = repository.findCharactersByHouse(houseID);
         return listStudents.stream().map(StudentRs::converter).collect(Collectors.toList());
@@ -95,6 +101,7 @@ public class StudentService {
     }
 
     /** cria um personagem na base de dados do tipo Student */
+    @Override
     public Student save(StudentRq studentRq) {
         Student student = null;
         House house = obtainHouse(studentRq.getHouse());
@@ -108,6 +115,7 @@ public class StudentService {
         return student;
     }
 
+    @Override
     public Student update(Student student) {
         repository.save(student);
         return student;
@@ -130,6 +138,10 @@ public class StudentService {
 
     public StudentRq getStudentRq(StudentRs student){
         return this.modelMapper.map(student, StudentRq.class);
+    }
+
+    public StudentRs getStudentRs(Student student){
+        return this.modelMapper.map(student, StudentRs.class);
     }
 
     /** recura a casa para ser utilizada no cadastro do personagem (Student) */

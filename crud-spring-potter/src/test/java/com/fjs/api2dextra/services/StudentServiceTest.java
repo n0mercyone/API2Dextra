@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.fjs.api2dextra.dto.StudentRq;
 import com.fjs.api2dextra.model.Student;
 import com.fjs.api2dextra.services.exceptions.EntityNotFoundException;
+import com.fjs.api2dextra.services.implementation.StudentService;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
