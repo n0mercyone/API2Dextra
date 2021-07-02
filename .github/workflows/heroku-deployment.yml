@@ -20,4 +20,4 @@ jobs:
         heroku_email: ${{secrets.HEROKU_EMAIL}}
         # The appname to use for deploying/updating
         heroku_app_name: ${{secrets.HEROKU_APP}}
-        env: ./crud-spring-potter
+        appdir: ./crud-spring-potter
