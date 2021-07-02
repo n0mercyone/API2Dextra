@@ -12,6 +12,7 @@ O projeto consiste em um CRUD utilizando uma API RESTful para cadastro de person
 
 ## Swagger da API
 ![Swagger](https://github.com/n0mercyone/assets/blob/main/swagger-crud-spring-potter.png)
+ - Nível 3 de maturidade
 
 # Tecnologias utilizadas
 ## Back end
