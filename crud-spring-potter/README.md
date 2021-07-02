@@ -22,7 +22,7 @@ O projeto consiste em um CRUD utilizando uma API RESTful para cadastro de person
 - Maven
 - Jarsey
 - Postgres
-- 
+
 ## Implantação
 - Back end: Heroku
 - Banco de dados: Postgresql
